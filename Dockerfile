@@ -1,11 +1,9 @@
-FROM maven:4.0.0-jdk-11-slim AS build
-COPY pom.xml /home/app/
-COPY src /home/app/src
-RUN mvn -f /app/pom.xml clean package
+FROM maven:3.8.6-openjdk-11 AS build
+COPY pom.xml .
+COPY src /src
 
 
 FROM openjdk:17
-
-COPY /home/app/target/order-service-0.0.1-SNAPSHOT.jar /usr/local/lib/app.jar
-
-ENTRYPOINT ["java","-jar","/usr/local/lib/app.jar"]
+VOLUME /tmp
+COPY target/*.jar app.jar
+ENTRYPOINT ["run.sh"]
