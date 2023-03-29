@@ -4,6 +4,6 @@ COPY src /src
 
 
 FROM openjdk:17
-VOLUME /tmp
-COPY target/*.jar app.jar
+
+COPY src/target/*.jar app.jar
 ENTRYPOINT ["run.sh"]
